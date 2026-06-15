@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藥祇生醫股份有限公司</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.47.0/iconfont/tabler-icons.min.css">
+<style>
+:root {
+  --ps-blue:#3B5FA0; --ps-blue-dark:#2A4478; --ps-blue-light:#EBF0F8;
+  --ps-red:#A63428; --ps-red-light:#F5EDEC;
+  --ps-sky:#8BBDD4; --ps-sky-light:#EAF3F8;
+  --ps-gray:#E2E3E5; --ps-gray-mid:#8A8B8D;
+  --ps-text:#1A1A2E; --ps-text-muted:#5A5B6A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans TC','Segoe UI',system-ui,sans-serif;color:var(--ps-text);background:#fff;line-height:1.6;}
+a{text-decoration:none;}
+.container{max-width:1280px;margin:0 auto;padding:0 40px;}
+
+/* ── NAV ── */
+.ps-nav{background:#fff;border-bottom:1px solid var(--ps-gray);position:sticky;top:0;z-index:200;}
+.ps-nav-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px;}
+.ps-logo svg text{font-family:'Georgia',serif;}
+.ps-nav-links{display:flex;gap:28px;align-items:center;}
+.ps-nav-links>a,.ps-dropdown>a{font-size:13.5px;color:var(--ps-text);font-weight:500;padding:8px 0;cursor:pointer;}
+.ps-nav-links>a:hover,.ps-dropdown>a:hover{color:var(--ps-blue);}
+.ps-dropdown{position:relative;}
+.ps-dropdown-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--ps-gray);border-radius:10px;padding:6px;min-width:150px;box-shadow:0 8px 24px rgba(0,0,0,0.08);opacity:0;visibility:hidden;transition:all .18s;z-index:300;}
+.ps-dropdown:hover .ps-dropdown-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+.ps-dropdown-menu a{display:block;padding:7px 14px;font-size:13px;color:var(--ps-text-muted);border-radius:6px;}
+.ps-dropdown-menu a:hover{background:var(--ps-blue-light);color:var(--ps-blue);}
+.ps-nav-right{display:flex;align-items:center;gap:14px;}
+.ps-nav-icon{width:36px;height:36px;border-radius:50%;background:var(--ps-blue-light);display:flex;align-items:center;justify-content:center;color:var(--ps-blue);font-size:16px;cursor:pointer;border:none;}
+
+/* ══════════════════════════════════════════
+   通用輪播元件 .ps-slider
+══════════════════════════════════════════ */
+.ps-slider{position:relative;overflow:hidden;border-radius:inherit;}
+.ps-slider-track{display:flex;transition:transform .5s ease;height:100%;}
+.ps-slider-track .ps-slide{min-width:100%;height:100%;background-size:cover;background-position:center;background-color:var(--ps-blue-light);}
+/* 佔位符（無圖時顯示） */
+.ps-slide-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:repeating-linear-gradient(45deg,#f0f3f8,#f0f3f8 8px,#e4e9f3 8px,#e4e9f3 16px);}
+.ps-slide-placeholder i{font-size:36px;color:#aab8d0;}
+.ps-slide-placeholder span{font-size:12px;color:#7a8fad;font-weight:600;letter-spacing:.05em;}
+/* 控制鍵 */
+.ps-slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;background:rgba(255,255,255,.9);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ps-blue);z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:background .15s;}
+.ps-slider-btn:hover{background:#fff;}
+.ps-slider-btn.prev{left:12px;}
+.ps-slider-btn.next{right:12px;}
+/* 圓點 */
+.ps-slider-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;}
+.ps-slider-dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;}
+.ps-slider-dots span.active{background:#fff;width:20px;border-radius:4px;}
+
+/* ── HERO ── */
+.ps-hero{position:relative;overflow:hidden;background:var(--ps-blue);min-height:520px;display:grid;grid-template-columns:1fr 1fr;}
+.ps-hero-left{padding:80px 48px 80px 60px;position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;}
+.ps-hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 14px;border-radius:20px;margin-bottom:22px;text-transform:uppercase;width:fit-content;}
+.ps-hero h1{font-size:40px;font-weight:900;color:#fff;line-height:1.35;margin:0 0 22px;letter-spacing:-.5px;}
+.ps-hero-sub{font-size:14px;color:rgba(255,255,255,.82);line-height:2;margin:0 0 40px;}
+.ps-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.ps-stat-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:18px 16px;}
+.ps-stat-num{font-size:22px;font-weight:900;color:#fff;line-height:1;margin-bottom:8px;}
+.ps-stat-label{font-size:11px;color:rgba(255,255,255,.7);line-height:1.6;}
+/* Hero 右側輪播 */
+.ps-hero-slider{height:100%;min-height:520px;}
+.ps-hero-slider .ps-slide{position:relative;}
+.ps-hero-slider .ps-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(59,95,160,.6) 0%,transparent 40%);}
+/* 裝飾 */
+.ps-hero-decor{position:absolute;bottom:0;left:0;right:0;z-index:1;}
+
+/* ── SECTION SHARED ── */
+.ps-section{padding:72px 0;}
+.ps-section.bg-sky{background:var(--ps-sky-light);}
+.ps-section.bg-blue-light{background:var(--ps-blue-light);}
+.ps-section-head{margin-bottom:40px;}
+.ps-section-bar-label{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.ps-section-bar-label .bar{width:6px;height:26px;background:var(--ps-blue);border-radius:3px;flex-shrink:0;}
+.ps-section-bar-label .bar.red{background:var(--ps-red);}
+.ps-section-head h2{font-size:26px;font-weight:900;color:var(--ps-text);}
+.ps-section-head p{font-size:14px;color:var(--ps-text-muted);line-height:1.9;margin-top:6px;}
+.ps-more-btn{display:inline-flex;align-items:center;gap:8px;background:var(--ps-blue-light);color:var(--ps-blue);border:none;border-radius:24px;padding:11px 26px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s;font-family:inherit;}
+.ps-more-btn:hover{background:var(--ps-sky);}
+.ps-more-btn.on-dark{background:rgba(255,255,255,.15);color:#fff;}
+.ps-more-btn.on-dark:hover{background:rgba(255,255,255,.25);}
+
+/* ── CORE TECH ── */
+.ps-coretech-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:48px;align-items:center;}
+.ps-coretech-slider{border-radius:16px;overflow:hidden;height:340px;}
+.ps-coretech-text h3{font-size:18px;font-weight:700;margin:0 0 14px;}
+.ps-coretech-text p{font-size:14px;color:var(--ps-text-muted);line-height:2;margin:0 0 24px;}
+
+/* ── ABOUT ── */
+.ps-about-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:480px;}
+.ps-about-slider{height:100%;min-height:480px;}
+.ps-about-content-wrap{background:#fff;padding:60px 56px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.ps-about-dna{position:absolute;right:-20px;top:0;bottom:0;opacity:.18;display:flex;align-items:center;}
+.ps-about-content{position:relative;z-index:2;}
+.ps-about-content h2{font-size:26px;font-weight:900;margin:0 0 4px;}
+.ps-about-content .en{font-size:16px;font-weight:700;color:var(--ps-text-muted);letter-spacing:.2em;display:block;margin-bottom:22px;}
+.ps-about-content p{font-size:14px;color:var(--ps-text-muted);line-height:2.1;margin:0 0 28px;}
+
+/* ── NEWS CAROUSEL (大輪播) ── */
+.ps-news-big{position:relative;}
+.ps-news-big-slider{border-radius:20px;overflow:hidden;height:420px;}
+.ps-news-big-slider .ps-slide{position:relative;}
+.ps-news-big-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,46,.75) 0%,transparent 55%);z-index:2;}
+.ps-news-big-caption{position:absolute;bottom:0;left:0;right:0;padding:32px 36px;z-index:3;}
+.ps-news-big-caption h3{font-size:20px;font-weight:900;color:#fff;margin:0 0 8px;}
+.ps-news-big-caption p{font-size:13px;color:rgba(255,255,255,.8);margin:0;}
+.ps-news-big-caption .tag{display:inline-block;background:var(--ps-red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;margin-bottom:12px;}
+/* 右側 3 小卡 */
+.ps-news-side{display:flex;flex-direction:column;gap:14px;}
+.ps-news-card-sm{background:#fff;border:1px solid var(--ps-gray);border-radius:14px;overflow:hidden;display:flex;gap:0;}
+.ps-news-card-sm-img-wrap{width:110px;flex-shrink:0;position:relative;overflow:hidden;}
+.ps-news-card-sm-slider{height:90px;}
+.ps-news-card-sm-slider .ps-slide{background-color:#e8eff8;}
+.ps-news-card-sm-body{padding:14px 16px;display:flex;flex-direction:column;justify-content:center;}
+.ps-news-card-sm-body .tag{font-size:10px;font-weight:700;background:var(--ps-blue-light);color:var(--ps-blue);padding:2px 8px;border-radius:4px;margin-bottom:6px;display:inline-block;}
+.ps-news-card-sm-body h4{font-size:13px;font-weight:700;color:var(--ps-text);margin:0 0 4px;line-height:1.45;}
+.ps-news-card-sm-body p{font-size:11px;color:var(--ps-text-muted);margin:0;}
+/* 新聞整體 layout */
+.ps-news-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start;}
+
+/* ── RECRUIT BANNER ── */
+.ps-recruit{background:var(--ps-red);padding:28px 0;}
+.ps-recruit-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.ps-recruit-left{display:flex;align-items:center;gap:18px;}
+.ps-recruit-icon{width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--ps-red);font-size:24px;flex-shrink:0;}
+.ps-recruit-text h3{font-size:18px;font-weight:900;color:#fff;margin:0 0 5px;}
+.ps-recruit-text p{font-size:12px;color:rgba(255,255,255,.88);margin:0;}
+.ps-white-btn{background:#fff;border:none;border-radius:24px;padding:12px 28px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;}
+.ps-white-btn.red{color:var(--ps-red);}
+.ps-white-btn.blue{color:var(--ps-blue);}
+
+/* ── CAREERS ── */
+.ps-careers-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start;}
+.ps-careers-main{background:var(--ps-blue);border-radius:18px;overflow:hidden;}
+.ps-careers-slider{height:220px;}
+.ps-careers-body{padding:30px 32px 32px;}
+.ps-careers-body h3{font-size:18px;font-weight:900;color:#fff;margin:0 0 12px;}
+.ps-careers-body p{font-size:13px;color:rgba(255,255,255,.82);line-height:1.9;margin:0 0 18px;}
+.ps-careers-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+.ps-careers-tags span{background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:14px;}
+.ps-careers-side{display:flex;flex-direction:column;gap:14px;}
+.ps-career-card{background:#fff;border:1px solid var(--ps-gray);border-radius:14px;overflow:hidden;}
+.ps-career-img{position:relative;}
+.ps-career-slider{height:120px;}
+.ps-career-card-body{padding:16px 18px;}
+.ps-career-card-body h4{font-size:13px;font-weight:700;margin:0 0 4px;}
+.ps-career-card-body p{font-size:12px;color:var(--ps-text-muted);margin:0;line-height:1.7;}
+
+/* ── INVESTORS ── */
+.ps-investor-slider-wrap{border-radius:18px;overflow:hidden;height:260px;margin-bottom:28px;}
+.ps-investor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.ps-investor-card{background:#fff;border:1px solid var(--ps-gray);border-radius:14px;padding:24px 18px;text-align:center;transition:border-color .15s,transform .15s;cursor:pointer;}
+.ps-investor-card:hover{border-color:var(--ps-blue);transform:translateY(-3px);}
+.ps-investor-card-icon{width:46px;height:46px;border-radius:12px;background:var(--ps-blue-light);color:var(--ps-blue);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px;}
+.ps-investor-card h4{font-size:13px;font-weight:700;margin:0 0 5px;}
+.ps-investor-card p{font-size:11px;color:var(--ps-text-muted);margin:0;line-height:1.7;}
+.ps-investor-cta{background:var(--ps-blue-light);border-radius:14px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ps-investor-cta h3{font-size:15px;font-weight:700;margin:0 0 5px;}
+.ps-investor-cta p{font-size:12px;color:var(--ps-text-muted);margin:0;}
+
+/* ── CONTACT ── */
+.ps-contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:28px;}
+.ps-contact-form{background:#fff;border:1px solid var(--ps-gray);border-radius:16px;padding:32px;}
+.ps-contact-form h3{font-size:16px;font-weight:900;margin:0 0 22px;}
+.ps-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.ps-form-row.full{grid-template-columns:1fr;}
+.ps-form-row label{display:block;font-size:11px;font-weight:700;color:var(--ps-text-muted);margin-bottom:5px;letter-spacing:.05em;text-transform:uppercase;}
+.ps-form-row input,.ps-form-row textarea,.ps-form-row select{width:100%;border:1px solid var(--ps-gray);border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;color:var(--ps-text);background:#fafafa;}
+.ps-form-row textarea{resize:vertical;min-height:88px;}
+.ps-form-row input:focus,.ps-form-row textarea:focus{outline:none;border-color:var(--ps-blue);}
+.ps-form-submit{width:100%;background:var(--ps-blue);color:#fff;border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;margin-top:6px;font-family:inherit;}
+.ps-contact-right{background:var(--ps-blue);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;}
+.ps-contact-slider{height:200px;flex-shrink:0;}
+.ps-contact-info-body{padding:28px;flex:1;}
+.ps-contact-info-body h3{font-size:16px;font-weight:900;color:#fff;margin:0 0 20px;}
+.ps-contact-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;}
+.ps-contact-item-icon{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0;}
+.ps-contact-item h4{font-size:12px;font-weight:700;color:#fff;margin:0 0 2px;}
+.ps-contact-item p{font-size:12px;color:rgba(255,255,255,.75);margin:0;line-height:1.7;}
+
+/* ── INFO COLUMNS ── */
+.ps-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.ps-info-col h3{font-size:15px;font-weight:900;color:var(--ps-text);padding-bottom:12px;border-bottom:3px solid var(--ps-sky);margin-bottom:16px;display:inline-block;}
+.ps-info-col ul{list-style:none;}
+.ps-info-col li{margin-bottom:10px;}
+.ps-info-col li a{font-size:13px;color:var(--ps-text-muted);line-height:1.7;display:block;}
+.ps-info-col li a:hover{color:var(--ps-blue);}
+.ps-info-col address{font-size:13px;color:var(--ps-text-muted);line-height:2;font-style:normal;}
+
+/* ── FOOTER ── */
+.ps-footer{background:var(--ps-sky-light);padding:32px 0;}
+.ps-footer-top{text-align:center;font-size:13px;color:var(--ps-blue-dark);font-weight:700;margin-bottom:24px;}
+.ps-footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.ps-footer-contact{display:flex;gap:24px;flex-wrap:wrap;}
+.ps-footer-contact-item{display:flex;align-items:center;gap:10px;}
+.ps-footer-contact-icon{width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--ps-blue);font-size:15px;}
+.ps-footer-contact-item span{font-size:13px;font-weight:700;color:var(--ps-text);}
+.ps-footer-social{display:flex;gap:10px;}
+.ps-footer-social a{width:38px;height:38px;border-radius:50%;background:var(--ps-blue);display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;}
+.ps-footer-copy{text-align:center;font-size:11px;color:var(--ps-text-muted);margin-top:20px;padding-top:18px;border-top:1px solid rgba(59,95,160,.12);}
+
+/* ── RWD ── */
+@media(max-width:1024px){
+  .ps-hero{grid-template-columns:1fr;}
+  .ps-hero-left{padding:60px 40px;}
+  .ps-hero-slider{display:none;}
+  .ps-coretech-inner,.ps-about-inner,.ps-careers-grid,.ps-contact-grid,.ps-news-grid{grid-template-columns:1fr;}
+  .ps-coretech-slider{height:260px;}
+  .ps-about-slider{min-height:300px;}
+  .ps-investor-grid{grid-template-columns:repeat(2,1fr);}
+  .ps-about-content-wrap{padding:44px 36px;}
+  .container,.ps-nav-inner{padding:0 20px;}
+}
+@media(max-width:640px){
+  .ps-stat-grid{grid-template-columns:repeat(2,1fr);}
+  .ps-investor-grid{grid-template-columns:1fr 1fr;}
+  .ps-info-grid{grid-template-columns:1fr;gap:28px;}
+  .ps-form-row{grid-template-columns:1fr;}
+  .ps-footer-bottom{flex-direction:column;align-items:flex-start;}
+  .ps-nav-links{display:none;}
+  .ps-hero h1{font-size:28px;}
+  .ps-news-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- =====================================================
+     ⚙️  圖片設定區 — 在這裡集中管理全站所有圖片網址
+     每個陣列對應一個輪播區域，可放 1 到多張圖片
+     格式：{ url: '圖片網址', caption: '選填說明文字' }
+====================================================== -->
+<script>
+const PS_IMAGES = {
+
+  /* ── Hero 右側輪播 ──────────────────────────────── */
+  hero: [
+    { url: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80', caption: '' },
+    { url: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80', caption: '' },
+    { url: 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1200&q=80', caption: '' }
+  ],
+
+  /* ── 核心技術 說明圖 ─────────────────────────────── */
+  coreTech: [
+    { url: 'https://images.unsplash.com/photo-1576670159805-381a35b16f63?w=900&q=80', caption: '' },
+    { url: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=900&q=80', caption: '' }
+  ],
+
+  /* ── 關於藥祇 左側圖 ─────────────────────────────── */
+  about: [
+    { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80', caption: '' },
+    { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80', caption: '' },
+    { url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=900&q=80', caption: '' }
+  ],
+
+  /* ── 最新消息 主輪播 ─────────────────────────────── */
+  newsMain: [
+    { url: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80', caption: '藥祇生醫登興櫃，角逐北美生技展 Start-up Stadium 冠軍' },
+    { url: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=1200&q=80', caption: '2025 台北生技獎 創新技術獎得獎' },
+    { url: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&q=80', caption: '藥祇挺進矽谷！取得 Landing TREE Program 補助' }
+  ],
+
+  /* ── 最新消息 右側小卡（各一組陣列，可個別輪播） */
+  newsCard1: [
+    { url: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&q=80', caption: '' }
+  ],
+  newsCard2: [
+    { url: 'https://images.unsplash.com/photo-1576671081837-49000212a370?w=400&q=80', caption: '' }
+  ],
+  newsCard3: [
+    { url: 'https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=400&q=80', caption: '' }
+  ],
+
+  /* ── 人才招募 主圖 ───────────────────────────────── */
+  careersMain: [
+    { url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80', caption: '' },
+    { url: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900&q=80', caption: '' }
+  ],
+
+  /* ── 人才招募 職缺卡片各別圖（可單張） ── */
+  career1: [
+    { url: 'https://images.unsplash.com/photo-1576671081837-49000212a370?w=600&q=80', caption: '' }
+  ],
+  career2: [
+    { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80', caption: '' }
+  ],
+  career3: [
+    { url: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&q=80', caption: '' }
+  ],
+
+  /* ── 投資人專區 橫幅圖 ───────────────────────────── */
+  investors: [
+    { url: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&q=80', caption: '' },
+    { url: 'https://images.unsplash.com/photo-1559526324-593bc073d938?w=1200&q=80', caption: '' }
+  ],
+
+  /* ── 聯絡我們 頂部圖 ─────────────────────────────── */
+  contact: [
+    { url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=900&q=80', caption: '' },
+    { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80', caption: '' }
+  ]
+
+};
+</script>
+<!-- =====================================================
+     以上為圖片設定區，以下請勿隨意修改
+====================================================== -->
+
+<!-- NAV -->
+<nav class="ps-nav">
+  <div class="ps-nav-inner">
+    <a href="#hero" class="ps-logo">
+      <svg width="148" height="34" viewBox="0 0 148 34"><text x="0" y="26" font-family="Georgia,serif" font-size="24" font-weight="700" font-style="italic" fill="#A63428">Pharmasaga</text></svg>
+    </a>
+    <div class="ps-nav-links">
+      <a href="#hero">回首頁</a>
+      <div class="ps-dropdown">
+        <a href="#about">關於藥祇 <i class="ti ti-chevron-down" style="font-size:11px"></i></a>
+        <div class="ps-dropdown-menu">
+          <a href="#">願景與里程碑</a><a href="#">組織與團隊</a><a href="#">歷年獲獎</a>
+        </div>
+      </div>
+      <div class="ps-dropdown">
+        <a href="#core-tech">產品與研發 <i class="ti ti-chevron-down" style="font-size:11px"></i></a>
+        <div class="ps-dropdown-menu">
+          <a href="#">新藥開發與進展</a><a href="#">核心技術</a><a href="#">糖尿病</a>
+        </div>
+      </div>
+      <div class="ps-dropdown">
+        <a href="#investors">投資人專區 <i class="ti ti-chevron-down" style="font-size:11px"></i></a>
+        <div class="ps-dropdown-menu">
+          <a href="#">財務資訊</a><a href="#">股東專區</a><a href="#">公司治理</a><a href="#">法人說明會</a>
+        </div>
+      </div>
+      <div class="ps-dropdown">
+        <a href="#news">新聞中心 <i class="ti ti-chevron-down" style="font-size:11px"></i></a>
+        <div class="ps-dropdown-menu">
+          <a href="#">最新消息</a><a href="#">投資人相關</a><a href="#">公司相關</a>
+        </div>
+      </div>
+      <div class="ps-dropdown">
+        <a href="#">其他 <i class="ti ti-chevron-down" style="font-size:11px"></i></a>
+        <div class="ps-dropdown-menu">
+          <a href="#careers">人才招募</a><a href="#contact">聯絡藥祇</a>
+        </div>
+      </div>
+    </div>
+    <div class="ps-nav-right">
+      <span style="font-size:13px;color:var(--ps-text-muted);cursor:pointer">
+        <i class="ti ti-world" style="font-size:15px;vertical-align:-2px"></i> 中文
+      </span>
+      <button class="ps-nav-icon" aria-label="搜尋"><i class="ti ti-search"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="ps-hero" id="hero">
+  <div class="ps-hero-left">
+    <div class="ps-hero-eyebrow"><i class="ti ti-dna" aria-hidden="true" style="font-size:12px"></i> 中研院衍生新創 · 2021</div>
+    <h1>以創新標靶療法，治癒糖尿病</h1>
+    <p class="ps-hero-sub">藥祇生醫開發全球首見小分子新藥 PS-001，有效抑制 PDIA4 蛋白，防止胰島細胞死亡，為第二型糖尿病患者帶來治癒新希望。</p>
+    <div class="ps-stat-grid">
+      <div class="ps-stat-card"><div class="ps-stat-num">Phase 1</div><div class="ps-stat-label">PS-001 臨床試驗階段</div></div>
+      <div class="ps-stat-card"><div class="ps-stat-num">57 組</div><div class="ps-stat-label">BIO 全球入選隊伍競爭中</div></div>
+      <div class="ps-stat-card"><div class="ps-stat-num">10+</div><div class="ps-stat-label">年中研院研究成果技轉</div></div>
+      <div class="ps-stat-card"><div class="ps-stat-num">2025</div><div class="ps-stat-label">台北生技獎 創新技術獎</div></div>
+    </div>
+  </div>
+  <!-- Hero 右側輪播 -->
+  <div class="ps-hero-slider" id="slider-hero" data-key="hero"></div>
+</section>
+
+<!-- ── CORE TECH ── -->
+<section class="ps-section" id="core-tech">
+  <div class="container">
+    <div class="ps-coretech-inner">
+      <!-- 核心技術 說明圖輪播 -->
+      <div class="ps-coretech-slider" id="slider-coreTech" data-key="coreTech"></div>
+      <div class="ps-coretech-text">
+        <div class="ps-section-head">
+          <div class="ps-section-bar-label"><div class="bar red"></div><span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ps-red)">核心技術 Core Technologies</span></div>
+          <h2>突破性的糖尿病治療平台</h2>
+          <p>中研院首先發現鑑定全新糖尿病標靶 Pdia4，利用分子對接技術平台鑑定出抑制 Pdia4 的先導物質，開發成為糖尿病市場首見小分子新藥 PS-001。</p>
+        </div>
+        <button class="ps-more-btn" onclick="location.href='#'">了解更多 <i class="ti ti-arrow-right" style="font-size:13px"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="ps-section bg-sky" id="about">
+  <div class="ps-about-inner container" style="max-width:100%;padding:0;margin:0;">
+    <!-- 關於藥祇 左側圖輪播 -->
+    <div class="ps-about-slider" id="slider-about" data-key="about"></div>
+    <div class="ps-about-content-wrap">
+      <div class="ps-about-dna" aria-hidden="true">
+        <svg width="200" height="400" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#8BBDD4" stroke-width="3" fill="none">
+            <path d="M40 0 C140 60,60 120,140 180 C60 240,140 300,40 360 C140 420,60 480,140 540"/>
+            <path d="M140 0 C40 60,120 120,40 180 C120 240,40 300,140 360 C40 420,120 480,40 540"/>
+          </g>
+          <g fill="#3B5FA0">
+            <circle cx="40" cy="10" r="5"/><circle cx="140" cy="10" r="5"/>
+            <circle cx="90" cy="60" r="5"/>
+            <circle cx="55" cy="120" r="5"/><circle cx="140" cy="120" r="5"/>
+            <circle cx="90" cy="180" r="5"/>
+            <circle cx="40" cy="240" r="5"/><circle cx="140" cy="240" r="5"/>
+            <circle cx="90" cy="300" r="5"/>
+            <circle cx="55" cy="360" r="5"/><circle cx="140" cy="360" r="5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="ps-about-content">
+        <div class="ps-section-bar-label" style="margin-bottom:8px"><div class="bar red"></div><span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ps-red)">About</span></div>
+        <h2>關於藥祇</h2>
+        <span class="en" style="font-size:16px;font-weight:700;color:var(--ps-text-muted);letter-spacing:.2em;display:block;margin-bottom:20px;">Pharmasaga Biomedical</span>
+        <p style="font-size:14px;color:var(--ps-text-muted);line-height:2.1;margin:0 0 26px;">藥祇生醫成立於 2021 年 1 月，為中研院的衍生新創公司，並技轉楊文欽實驗室十多年的研究成果 PS1。PS1 能有效抑制在糖尿病扮演關鍵角色的 PDIA4 蛋白，數據顯示可防止胰島細胞死亡並穩定血糖。</p>
+        <button class="ps-more-btn" onclick="location.href='#'">了解更多 <i class="ti ti-arrow-right" style="font-size:13px"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWS ── -->
+<section class="ps-section bg-blue-light" id="news">
+  <div class="container">
+    <div class="ps-section-head">
+      <div class="ps-section-bar-label"><div class="bar"></div><h2>最新消息</h2></div>
+    </div>
+    <div class="ps-news-grid">
+      <!-- 最新消息主輪播 -->
+      <div class="ps-news-big">
+        <div class="ps-news-big-slider" id="slider-newsMain" data-key="newsMain"></div>
+      </div>
+      <!-- 右側 3 小卡 -->
+      <div class="ps-news-side">
+        <div class="ps-news-card-sm">
+          <div class="ps-news-card-sm-img-wrap">
+            <div class="ps-news-card-sm-slider" id="slider-newsCard1" data-key="newsCard1"></div>
+          </div>
+          <div class="ps-news-card-sm-body">
+            <span class="tag">獎項</span>
+            <h4>2025 台北生技獎 創新技術獎</h4>
+            <p>2025 · 台灣</p>
+          </div>
+        </div>
+        <div class="ps-news-card-sm">
+          <div class="ps-news-card-sm-img-wrap">
+            <div class="ps-news-card-sm-slider" id="slider-newsCard2" data-key="newsCard2"></div>
+          </div>
+          <div class="ps-news-card-sm-body">
+            <span class="tag">矽谷</span>
+            <h4>Landing TREE Program 補助，接軌 Berkeley Skydeck</h4>
+            <p>2026 · 國際</p>
+          </div>
+        </div>
+        <div class="ps-news-card-sm">
+          <div class="ps-news-card-sm-img-wrap">
+            <div class="ps-news-card-sm-slider" id="slider-newsCard3" data-key="newsCard3"></div>
+          </div>
+          <div class="ps-news-card-sm-body">
+            <span class="tag">臨床</span>
+            <h4>PS-001 Phase I 啟動，北醫附院執行</h4>
+            <p>2025 · 台灣</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PS-001 RECRUIT BANNER ── -->
+<section class="ps-recruit">
+  <div class="container ps-recruit-inner">
+    <div class="ps-recruit-left">
+      <div class="ps-recruit-icon" aria-hidden="true"><i class="ti ti-stethoscope"></i></div>
+      <div class="ps-recruit-text">
+        <h3>PS-001 臨床試驗現正招募受試者</h3>
+        <p>年齡 18-80 歲 · BMI 18.5-40 · HbA1c 5.7-9.0% · 由臺北醫學大學附設醫院執行</p>
+      </div>
+    </div>
+    <button class="ps-white-btn red" onclick="location.href='#'">了解更多 <i class="ti ti-arrow-right" style="font-size:12px"></i></button>
+  </div>
+</section>
+
+<!-- ── CAREERS ── -->
+<section class="ps-section" id="careers">
+  <div class="container">
+    <div class="ps-section-head">
+      <div class="ps-section-bar-label"><div class="bar"></div><h2>人才招募</h2></div>
+    </div>
+    <div class="ps-careers-grid">
+      <div class="ps-careers-main">
+        <!-- 人才招募 主圖輪播 -->
+        <div class="ps-careers-slider" id="slider-careersMain" data-key="careersMain"></div>
+        <div class="ps-careers-body">
+          <h3>與我們一起，改寫糖尿病治療的未來</h3>
+          <p>藥祇生醫歡迎對新藥研發充滿熱情的你加入，從分子生物學到臨床開發，我們共同將突破帶向全球患者。</p>
+          <div class="ps-careers-tags">
+            <span>新藥研發</span><span>臨床試驗</span><span>法規事務</span><span>商業開發</span>
+          </div>
+          <button class="ps-more-btn on-dark" onclick="location.href='#'">查看所有職缺 <i class="ti ti-arrow-right" style="font-size:13px"></i></button>
+        </div>
+      </div>
+      <div class="ps-careers-side">
+        <!-- 職缺卡 1 -->
+        <div class="ps-career-card">
+          <div class="ps-career-img"><div class="ps-career-slider" id="slider-career1" data-key="career1"></div></div>
+          <div class="ps-career-card-body">
+            <h4><i class="ti ti-flask" style="font-size:14px;vertical-align:-2px;margin-right:5px;color:var(--ps-blue)"></i>研發 / 臨床科學家</h4>
+            <p>參與 PS-001 臨床試驗設計與數據分析，與北醫團隊緊密合作。</p>
+          </div>
+        </div>
+        <!-- 職缺卡 2 -->
+        <div class="ps-career-card">
+          <div class="ps-career-img"><div class="ps-career-slider" id="slider-career2" data-key="career2"></div></div>
+          <div class="ps-career-card-body">
+            <h4><i class="ti ti-building-bank" style="font-size:14px;vertical-align:-2px;margin-right:5px;color:var(--ps-blue)"></i>法規與商業開發</h4>
+            <p>負責國際授權合作、法規送審文件準備與投資人溝通。</p>
+          </div>
+        </div>
+        <!-- 職缺卡 3 -->
+        <div class="ps-career-card">
+          <div class="ps-career-img"><div class="ps-career-slider" id="slider-career3" data-key="career3"></div></div>
+          <div class="ps-career-card-body">
+            <h4><i class="ti ti-users-group" style="font-size:14px;vertical-align:-2px;margin-right:5px;color:var(--ps-blue)"></i>實習與新鮮人專案</h4>
+            <p>提供生技相關科系學生實習機會，培養下一代研發人才。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INVESTORS ── -->
+<section class="ps-section bg-blue-light" id="investors">
+  <div class="container">
+    <div class="ps-section-head">
+      <div class="ps-section-bar-label"><div class="bar"></div><h2>投資人專區</h2></div>
+    </div>
+    <!-- 投資人 橫幅輪播 -->
+    <div class="ps-investor-slider-wrap" id="slider-investors" data-key="investors"></div>
+    <div class="ps-investor-grid">
+      <div class="ps-investor-card" onclick="location.href='#'">
+        <div class="ps-investor-card-icon"><i class="ti ti-report-money"></i></div>
+        <h4>財務資訊</h4><p>年報、季報與營運財務數據</p>
+      </div>
+      <div class="ps-investor-card" onclick="location.href='#'">
+        <div class="ps-investor-card-icon"><i class="ti ti-users"></i></div>
+        <h4>股東專區</h4><p>股東會公告、議事資料下載</p>
+      </div>
+      <div class="ps-investor-card" onclick="location.href='#'">
+        <div class="ps-investor-card-icon"><i class="ti ti-gavel"></i></div>
+        <h4>公司治理</h4><p>董事會、治理章程與內控制度</p>
+      </div>
+      <div class="ps-investor-card" onclick="location.href='#'">
+        <div class="ps-investor-card-icon"><i class="ti ti-presentation"></i></div>
+        <h4>法人說明會</h4><p>說明會場次與簡報資料下載</p>
+      </div>
+    </div>
+    <div class="ps-investor-cta">
+      <div><h3>想了解藥祇生醫的最新發展與投資機會？</h3><p>歡迎聯繫投資人關係團隊，或訂閱我們的最新公告通知。</p></div>
+      <button class="ps-white-btn blue" style="background:var(--ps-blue);color:#fff;" onclick="location.href='#contact'">聯繫 IR 團隊 <i class="ti ti-arrow-right" style="font-size:12px"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="ps-section" id="contact">
+  <div class="container">
+    <div class="ps-section-head">
+      <div class="ps-section-bar-label"><div class="bar"></div><h2>聯絡我們</h2></div>
+    </div>
+    <div class="ps-contact-grid">
+      <form class="ps-contact-form" onsubmit="event.preventDefault();alert('感謝您的訊息，我們將盡快回覆。')">
+        <h3>傳送訊息給我們</h3>
+        <div class="ps-form-row">
+          <div><label for="ps-name">姓名</label><input type="text" id="ps-name" placeholder="請輸入姓名" required></div>
+          <div><label for="ps-email">電子郵件</label><input type="email" id="ps-email" placeholder="example@email.com" required></div>
+        </div>
+        <div class="ps-form-row full">
+          <div><label for="ps-subject">主旨</label><input type="text" id="ps-subject" placeholder="諮詢主題"></div>
+        </div>
+        <div class="ps-form-row full">
+          <div><label for="ps-msg">訊息內容</label><textarea id="ps-msg" placeholder="請輸入詳細內容..." required></textarea></div>
+        </div>
+        <button type="submit" class="ps-form-submit">送出訊息</button>
+      </form>
+      <div class="ps-contact-right">
+        <!-- 聯絡我們 頂部圖輪播 -->
+        <div class="ps-contact-slider" id="slider-contact" data-key="contact"></div>
+        <div class="ps-contact-info-body">
+          <h3>聯絡資訊</h3>
+          <div class="ps-contact-item">
+            <div class="ps-contact-item-icon"><i class="ti ti-map-pin"></i></div>
+            <div><h4>公司地址</h4><p>221416 新北市汐止區新台五路一段93號22樓之1（D棟22樓之1）</p></div>
+          </div>
+          <div class="ps-contact-item">
+            <div class="ps-contact-item-icon"><i class="ti ti-phone"></i></div>
+            <div><h4>電話</h4><p>02-27938665</p></div>
+          </div>
+          <div class="ps-contact-item">
+            <div class="ps-contact-item-icon"><i class="ti ti-mail"></i></div>
+            <div><h4>電子郵件</h4><p>contact@pharmasaga.com</p></div>
+          </div>
+          <div class="ps-contact-item">
+            <div class="ps-contact-item-icon"><i class="ti ti-bus"></i></div>
+            <div><h4>大眾交通工具</h4><p>台鐵汐科站 / 公車搭至東方科學園區</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INFO COLUMNS ── -->
+<section class="ps-section bg-sky" id="news-list">
+  <div class="container ps-info-grid">
+    <div class="ps-info-col">
+      <h3>最新消息</h3>
+      <ul>
+        <li><a href="#">[NEWS] 新藥股生力軍！藥祇27日登興櫃 參考價120元</a></li>
+        <li><a href="#">[NEWS] 藥祇生醫第一/二型糖尿病新藥規劃</a></li>
+        <li><a href="#">[NEWS] 藥祇生醫勇獲2025台北生技獎-創新技術獎</a></li>
+        <li><a href="#">[NEWS] 藥祇生醫角逐北美生技展新創公司競賽冠軍</a></li>
+        <li><a href="#">[2025年] 藥祇創新糖尿病藥PS1展治癒潛力</a></li>
+        <li><a href="#">[2025年] 台灣參與BIO2025北美生技展</a></li>
+      </ul>
+    </div>
+    <div class="ps-info-col">
+      <h3>聯絡我們</h3>
+      <address>
+        藥祇生醫股份有限公司<br><br>
+        新北市汐止區新台五路一段93號22樓之1<br><br>
+        電話：02-27938665<br><br>
+        contact@pharmasaga.com<br><br>
+        大眾交通工具：台鐵汐科站
+      </address>
+    </div>
+    <div class="ps-info-col">
+      <h3>相關連結</h3>
+      <ul>
+        <li><a href="#" target="_blank">台灣科學家發現糖尿病的具潛力治療方法</a></li>
+        <li><a href="#" target="_blank">PS1第一期臨床試驗登錄在台灣藥物臨床試驗資訊網</a></li>
+        <li><a href="#" target="_blank">PDIA4為糖尿病致病機制發表於EMBO期刊</a></li>
+        <li><a href="#" target="_blank">PS1逆轉糖尿病致病機制發表於CMLS期刊</a></li>
+        <li><a href="#" target="_blank">PS1在美國臨床試驗註冊於ClinicalTrials.gov資訊</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="ps-footer">
+  <div class="container">
+    <div class="ps-footer-top">221416 新北市汐止區新台五路一段93號22樓之1</div>
+    <div class="ps-footer-bottom">
+      <a href="#hero"><svg width="148" height="34" viewBox="0 0 148 34"><text x="0" y="26" font-family="Georgia,serif" font-size="24" font-weight="700" font-style="italic" fill="#A63428">Pharmasaga</text></svg></a>
+      <div class="ps-footer-contact">
+        <div class="ps-footer-contact-item"><div class="ps-footer-contact-icon"><i class="ti ti-phone"></i></div><span>02-27938665</span></div>
+        <div class="ps-footer-contact-item"><div class="ps-footer-contact-icon"><i class="ti ti-mail"></i></div><span>contact@pharmasaga.com</span></div>
+      </div>
+      <div class="ps-footer-social">
+        <a href="https://www.facebook.com/Pharmasaga/" target="_blank" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#" target="_blank" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/pharmasaga/" target="_blank" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+        <a href="https://www.youtube.com/channel/UCGBzGuQTAEvsUFrBV6ASC4Q" target="_blank" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
+      </div>
+    </div>
+    <div class="ps-footer-copy">© 2026 藥祇生醫股份有限公司 Pharmasaga Biomedical Inc. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<!-- =====================================================
+     🔧 輪播引擎 — 自動掛載所有 [data-key] 元素
+====================================================== -->
+<script>
+(function() {
+  // 新聞主圖：需要 overlay + caption，特殊處理
+  const CAPTION_SLIDERS = new Set(['newsMain']);
+
+  function buildSlider(el, key) {
+    const images = (PS_IMAGES[key] || []);
+    const total  = images.length;
+
+    // 建立 track
+    const track = document.createElement('div');
+    track.className = 'ps-slider-track';
+
+    if (total === 0) {
+      // 無圖佔位
+      const slide = document.createElement('div');
+      slide.className = 'ps-slide';
+      const ph = document.createElement('div');
+      ph.className = 'ps-slide-placeholder';
+      ph.innerHTML = '<i class="ti ti-photo"></i><span>請在 PS_IMAGES.' + key + ' 填入圖片網址</span>';
+      slide.appendChild(ph);
+      track.appendChild(slide);
+      el.appendChild(track);
+      return;
+    }
+
+    images.forEach(function(img) {
+      const slide = document.createElement('div');
+      slide.className = 'ps-slide';
+      slide.style.backgroundImage = 'url(' + img.url + ')';
+      track.appendChild(slide);
+    });
+
+    el.classList.add('ps-slider');
+    el.appendChild(track);
+
+    // 單張圖不需要控制鍵/圓點
+    if (total <= 1) {
+      // caption（新聞主圖）
+      if (CAPTION_SLIDERS.has(key) && images[0].caption) {
+        appendCaption(el, images[0].caption, 0, 0);
+      }
+      return;
+    }
+
+    // 上一張 / 下一張按鈕
+    const btnPrev = makeBtn('prev', '‹');
+    const btnNext = makeBtn('next', '›');
+    el.appendChild(btnPrev);
+    el.appendChild(btnNext);
+
+    // 圓點
+    const dotsWrap = document.createElement('div');
+    dotsWrap.className = 'ps-slider-dots';
+    const dots = [];
+    images.forEach(function(_, i) {
+      const d = document.createElement('span');
+      if (i === 0) d.classList.add('active');
+      d.addEventListener('click', function() { goTo(i); });
+      dotsWrap.appendChild(d);
+      dots.push(d);
+    });
+    el.appendChild(dotsWrap);
+
+    // caption 覆蓋層
+    if (CAPTION_SLIDERS.has(key)) {
+      appendCaption(el, images[0].caption, 0, total);
+    }
+
+    let cur = 0, timer;
+
+    function goTo(n) {
+      cur = (n + total) % total;
+      track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === cur); });
+      if (CAPTION_SLIDERS.has(key)) updateCaption(el, images[cur].caption, cur, total);
+    }
+
+    function startAuto() { timer = setInterval(function() { goTo(cur + 1); }, 4500); }
+    function stopAuto()  { clearInterval(timer); }
+
+    btnPrev.addEventListener('click', function() { stopAuto(); goTo(cur - 1); startAuto(); });
+    btnNext.addEventListener('click', function() { stopAuto(); goTo(cur + 1); startAuto(); });
+    el.addEventListener('mouseenter', stopAuto);
+    el.addEventListener('mouseleave', startAuto);
+
+    startAuto();
+  }
+
+  function makeBtn(cls, label) {
+    const b = document.createElement('button');
+    b.className = 'ps-slider-btn ' + cls;
+    b.setAttribute('aria-label', cls === 'prev' ? '上一張' : '下一張');
+    b.innerHTML = label;
+    return b;
+  }
+
+  function appendCaption(el, text, cur, total) {
+    const ov = document.createElement('div');
+    ov.className = 'ps-news-big-overlay';
+    el.appendChild(ov);
+    const cap = document.createElement('div');
+    cap.className = 'ps-news-big-caption';
+    cap.innerHTML = '<span class="tag">最新 · 2025</span><h3>' + (text || '') + '</h3><p>全球 57 組中，亞洲唯二入選優秀隊伍</p>';
+    el.appendChild(cap);
+  }
+
+  function updateCaption(el, text, cur, total) {
+    const cap = el.querySelector('.ps-news-big-caption');
+    if (cap) cap.querySelector('h3').textContent = text || '';
+  }
+
+  // 初始化所有 [data-key]
+  document.querySelectorAll('[data-key]').forEach(function(el) {
+    buildSlider(el, el.dataset.key);
+  });
+})();
+</script>
+
+</body>
+</html>
